@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		bean配置，id必须唯一，class填全类名证明要反射
+		property属性注入
+	 -->
+	<bean id="person1" class="com.iotek.entity.Person">
+		<property name="name" value="HelloWorld"></property>
+	</bean>
+	
+	<!-- 构造器注入 -->
+	<bean id="person2" class="com.iotek.entity.Person">
+		<constructor-arg value="1"></constructor-arg>
+		<constructor-arg value="hehe"></constructor-arg>
+		<constructor-arg value="500"></constructor-arg>
+	</bean>
+	
+	<!-- Bean之间的引用 -->
+	<bean id="address" class="com.iotek.entity.Address">
+		<property name="name" value="上海"></property>
+	</bean>	
+	
+	<bean id="person3" class="com.iotek.entity.Person">
+		<property name="id" value="1"></property>
+		<property name="name" value="hh"></property>
+		<property name="money" value="50"></property>
+		<property name="age" value="18"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+	
+	<!-- 配置内部bean，内部bean不能够被外部bean使用 -->
+	<bean id="person4" class="com.iotek.entity.Person">
+		<property name="id" value="1"></property>
+		<property name="name" value="hh"></property>
+		<property name="money" value="50"></property>
+		<property name="age" value="18"></property>
+		<property name="address">
+			<bean class="com.iotek.entity.Address">
+				<property name="name" value="北京"></property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 特殊字符用CDATA来解决 -->
+	<bean class="com.iotek.entity.Person" id="person5">
+		<property name="name">
+			<value><![CDATA[<hh>]]></value>
+		</property>
+	</bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
